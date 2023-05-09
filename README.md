@@ -2,7 +2,7 @@
 
 #### Name: 陳品伃
 #### Student ID: 112753204
-#### ShinyApps link: [<https://yuu0223.shinyapps.io/NCCU_DS2023_112753204/>]
+#### ShinyApps link: [<https://yuu0223.shinyapps.io/NCCU_DS2023_hw4_112753204/>]
 
 ## Description
 

@@ -35,7 +35,7 @@ function(input, output, session) {
     })
     
     # 監聽x,y
-    observeEvent(c(input$x, input$y), {
+    observeEvent(list(input$x, input$y),{
       
       x <- match(input$x, names(pca_df))
       y <- match(input$y, names(pca_df))
@@ -67,20 +67,26 @@ function(input, output, session) {
   })
   
   #Kmeans繪圖處理
-  observeEvent(input$k_size, {
+  observeEvent(c(input$k_size, input$data_size), {
     
     set.seed(123)
-    km <- kmeans(iris[, 1:4], input$k_size)
+    km <- kmeans(iris[1:input$data_size, 1:4], input$k_size)
     
-    cluster <- iris
+    cluster <- iris[1:input$data_size,]
     cluster$cluster <- factor(km$cluster)
     
     ca <- CA(cluster[, 1:4], graph = FALSE)
+    rowscores <- as.data.frame(ca$row$coord)
+    colscores <- as.data.frame(ca$col$coord)
+    
     
     output$kmeans_plot <- renderPlot({
       fviz_ca_biplot(ca,
                      col.var = "blue",
-                     col.row = cluster$cluster)
+                     col.row = cluster$cluster) +
+      xlab(paste0("Dimension 1 (", round(ca$eig[,2][1], 1), "%)")) +
+      ylab(paste0("Dimension 2 (", round(ca$eig[,2][2], 1), "%)"))
+      
     })
   })
   

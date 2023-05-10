@@ -64,6 +64,8 @@ fluidPage(
              h3("CA Kmeans Plot - Iris"),
              
                sidebarPanel(
+                 sliderInput('data_size', 'Input data size', min=11, max=nrow(iris),
+                             value=min(150, nrow(iris)), round=0),
                  sliderInput('k_size', 'Center(k)', min=3, max=10,
                              value=min(10, 3), round=0)),
              
